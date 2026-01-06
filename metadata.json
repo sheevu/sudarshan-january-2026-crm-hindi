@@ -1,0 +1,8 @@
+{
+  "name": "Sudarshan CRM Assistant",
+  "description": "An India-first CRM and accounting assistant for MSMEs. Supports handwritten diary analysis, invoice management, and natural language interaction in Hindi, English, and Hinglish.",
+  "requestFramePermissions": [
+    "camera",
+    "microphone"
+  ]
+}
