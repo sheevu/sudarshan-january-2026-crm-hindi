@@ -81,11 +81,29 @@ export async function speakHindi(text: string) {
   }
 }
 
-export async function analyzeDiaryImage(base64Image: string): Promise<CrmAction> {
+export async function transcribeAudio(base64Audio: string): Promise<string> {
+  const audioPart = {
+    inlineData: {
+      mimeType: 'audio/webm',
+      data: base64Audio
+    }
+  };
+  const response = await ai.models.generateContent({
+    model: "gemini-3-flash-preview",
+    contents: { parts: [audioPart, { text: "Transcribe this audio strictly. If it is in Hindi or Hinglish, keep it that way." }] }
+  });
+  return response.text || '';
+}
+
+export async function analyzeDiaryImage(base64Image: string, transcriptionPrompt?: string): Promise<CrmAction> {
   const imagePart = { inlineData: { mimeType: 'image/jpeg', data: base64Image } };
+  const textPrompt = transcriptionPrompt 
+    ? `Read this shop diary accurately. Follow these specific instructions from the user: "${transcriptionPrompt}"`
+    : "Read this shop diary accurately. Look for regional scripts and abbreviations.";
+    
   const response = await ai.models.generateContent({
     model: "gemini-3-pro-preview",
-    contents: { parts: [imagePart, { text: "Read this shop diary accurately. Look for regional scripts and abbreviations." }] },
+    contents: { parts: [imagePart, { text: textPrompt }] },
     config: {
       systemInstruction: DIARY_ANALYSIS_INSTRUCTION,
       responseMimeType: "application/json"
