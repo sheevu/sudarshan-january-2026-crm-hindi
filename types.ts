@@ -2,10 +2,13 @@
 export type TransactionType = 'SALE' | 'PURCHASE' | 'EXPENSE' | 'PAYMENT_RECEIVED';
 
 export interface Transaction {
+  id?: string;
   type: TransactionType;
   label: string;
   amount: number;
-  date?: string;
+  date: string;
+  payment_mode?: string;
+  invoice_id?: string;
 }
 
 export interface Customer {
@@ -13,8 +16,32 @@ export interface Customer {
   business_name: string;
   owner_name: string;
   phone: string;
+  whatsapp?: string;
+  city?: string;
+  locality?: string;
+  category?: string;
+  gstin?: string;
+  created_at: string;
   due_amount: number;
   transactions: Transaction[];
+}
+
+export interface Product {
+  id: string;
+  name: string;
+  category: string;
+  price: number;
+  stock: number;
+  unit: string;
+}
+
+export interface Invoice {
+  id: string;
+  customer_id: string;
+  date: string;
+  total_amount: number;
+  status: 'PAID' | 'UNPAID' | 'PARTIAL';
+  notes?: string;
 }
 
 export type LeadStatus = 'NAYA' | 'BAAT_CHAL_RAHI' | 'PAKKA';

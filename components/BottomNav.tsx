@@ -1,5 +1,6 @@
 
 import React from 'react';
+import { LayoutDashboard, Users, Package, BookOpen, MessageSquareText, Mic } from 'lucide-react';
 
 interface BottomNavProps {
   activeTab: string;
@@ -9,11 +10,12 @@ interface BottomNavProps {
 
 const BottomNav: React.FC<BottomNavProps> = ({ activeTab, setActiveTab, language }) => {
   const tabs = [
-    { id: 'dashboard', icon: 'fa-chart-pie', en: 'Stats', hi: 'आंकड़े', color: 'text-orange-600' },
-    { id: 'customers', icon: 'fa-book-open', en: 'Khata', hi: 'खाता', color: 'text-indigo-600' },
-    { id: 'leads', icon: 'fa-layer-group', en: 'Tasks', hi: 'काम', color: 'text-blue-600' },
-    { id: 'diary', icon: 'fa-book-sparkles', en: 'Diary', hi: 'डायरी', color: 'text-amber-600' },
-    { id: 'chat', icon: 'fa-comment-sparkles', en: 'Asst.', hi: 'सहायक', color: 'text-rose-600' },
+    { id: 'dashboard', icon: <LayoutDashboard size={24} />, en: 'Stats', hi: 'आंकड़े', color: 'text-orange-600' },
+    { id: 'customers', icon: <Users size={24} />, en: 'Khata', hi: 'खाता', color: 'text-indigo-600' },
+    { id: 'inventory', icon: <Package size={24} />, en: 'Stock', hi: 'स्टॉक', color: 'text-emerald-600' },
+    { id: 'diary', icon: <BookOpen size={24} />, en: 'Diary', hi: 'डायरी', color: 'text-amber-600' },
+    { id: 'chat', icon: <MessageSquareText size={24} />, en: 'Asst.', hi: 'सहायक', color: 'text-rose-600' },
+    { id: 'voice', icon: <Mic size={24} />, en: 'Live', hi: 'लाइव', color: 'text-indigo-600' },
   ];
 
   return (
@@ -29,7 +31,7 @@ const BottomNav: React.FC<BottomNavProps> = ({ activeTab, setActiveTab, language
             }`}
           >
             <div className={`flex items-center justify-center w-11 h-11 transition-all duration-300 ${isActive ? 'bg-slate-50 rounded-2xl shadow-inner border border-slate-100' : ''}`}>
-               <i className={`fas ${tab.icon} ${isActive ? 'text-2xl' : 'text-xl opacity-70'}`}></i>
+               {tab.icon}
             </div>
             <span className={`text-[11px] font-black uppercase tracking-[0.1em] ${isActive ? 'opacity-100 scale-105' : 'opacity-60 font-extrabold'}`}>
               {language === 'hi' ? tab.hi : tab.en}

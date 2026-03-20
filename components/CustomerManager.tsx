@@ -1,6 +1,7 @@
 
 import React, { useState } from 'react';
 import { Customer } from '../types';
+import { Plus, Search, User, Phone, ChevronRight } from 'lucide-react';
 
 interface CustomerManagerProps {
   onSelectCustomer: (customer: Customer) => void;
@@ -14,10 +15,11 @@ const CustomerManager: React.FC<CustomerManagerProps> = ({ onSelectCustomer }) =
       business_name: 'Gupta General Store', 
       owner_name: 'Rajesh Gupta', 
       phone: '9876543210', 
+      created_at: new Date().toISOString(),
       due_amount: 4500,
       transactions: [
-        { type: 'SALE', label: 'Monthly Groceries', amount: 3000, date: '12 Oct' },
-        { type: 'SALE', label: 'Oil and Dal', amount: 1500, date: '15 Oct' }
+        { type: 'SALE', label: 'Monthly Groceries', amount: 3000, date: '2026-03-10' },
+        { type: 'SALE', label: 'Oil and Dal', amount: 1500, date: '2026-03-15' }
       ]
     },
     { 
@@ -25,10 +27,11 @@ const CustomerManager: React.FC<CustomerManagerProps> = ({ onSelectCustomer }) =
       business_name: 'Sharma Sweets', 
       owner_name: 'Amit Sharma', 
       phone: '9123456789', 
+      created_at: new Date().toISOString(),
       due_amount: 1200,
       transactions: [
-        { type: 'SALE', label: 'Diwali Box Order', amount: 2000, date: '10 Oct' },
-        { type: 'PAYMENT_RECEIVED', label: 'Cash Payment', amount: 800, date: '11 Oct' }
+        { type: 'SALE', label: 'Diwali Box Order', amount: 2000, date: '2026-03-10' },
+        { type: 'PAYMENT_RECEIVED', label: 'Cash Payment', amount: 800, date: '2026-03-11' }
       ]
     },
     { 
@@ -36,6 +39,7 @@ const CustomerManager: React.FC<CustomerManagerProps> = ({ onSelectCustomer }) =
       business_name: 'Prakash Kirana', 
       owner_name: 'Om Prakash', 
       phone: '8877665544', 
+      created_at: new Date().toISOString(),
       due_amount: 0,
       transactions: []
     }
@@ -50,6 +54,7 @@ const CustomerManager: React.FC<CustomerManagerProps> = ({ onSelectCustomer }) =
       business_name: newCust.biz,
       owner_name: newCust.owner,
       phone: newCust.phone,
+      created_at: new Date().toISOString(),
       due_amount: 0,
       transactions: []
     };
@@ -69,7 +74,7 @@ const CustomerManager: React.FC<CustomerManagerProps> = ({ onSelectCustomer }) =
           onClick={() => setShowAddModal(true)}
           className="bg-indigo-600 text-white w-16 h-16 rounded-[1.5rem] shadow-2xl shadow-indigo-200 active:scale-90 transition-transform flex items-center justify-center border-4 border-white"
         >
-          <i className="fas fa-plus text-2xl"></i>
+          <Plus size={28} />
         </button>
       </div>
 
@@ -79,7 +84,7 @@ const CustomerManager: React.FC<CustomerManagerProps> = ({ onSelectCustomer }) =
           placeholder="Dukan ya phone number dhoondein..."
           className="w-full bg-slate-50 border-2 border-slate-200 rounded-[2rem] px-16 py-6 text-lg text-slate-900 font-bold focus:outline-none focus:ring-4 focus:ring-indigo-100 transition-all placeholder:text-slate-400 shadow-inner"
         />
-        <i className="fas fa-search absolute left-7 top-1/2 -translate-y-1/2 text-slate-400 group-focus-within:text-indigo-600 transition-colors text-xl"></i>
+        <Search className="absolute left-7 top-1/2 -translate-y-1/2 text-slate-400 group-focus-within:text-indigo-600 transition-colors" size={24} />
       </div>
 
       <div className="space-y-6">
@@ -88,8 +93,8 @@ const CustomerManager: React.FC<CustomerManagerProps> = ({ onSelectCustomer }) =
             <div className="space-y-3">
               <p className="text-2xl font-black text-slate-900 group-hover:text-indigo-600 transition-colors tracking-tight leading-tight">{c.business_name}</p>
               <div className="flex flex-col gap-2 text-sm text-slate-600 font-extrabold">
-                <span className="flex items-center gap-2"><i className="fas fa-user-tie text-indigo-400"></i> {c.owner_name}</span>
-                <span className="flex items-center gap-2"><i className="fas fa-phone text-emerald-400"></i> {c.phone}</span>
+                <span className="flex items-center gap-2"><User size={16} className="text-indigo-400" /> {c.owner_name}</span>
+                <span className="flex items-center gap-2"><Phone size={16} className="text-emerald-400" /> {c.phone}</span>
               </div>
             </div>
             <div className="text-right flex flex-col items-end gap-5">
@@ -101,9 +106,9 @@ const CustomerManager: React.FC<CustomerManagerProps> = ({ onSelectCustomer }) =
               </div>
               <button 
                 onClick={() => onSelectCustomer(c)}
-                className="text-xs uppercase font-black text-indigo-700 bg-indigo-50 px-6 py-4 rounded-2xl border-2 border-indigo-100 active:scale-95 transition-all shadow-sm"
+                className="text-xs uppercase font-black text-indigo-700 bg-indigo-50 px-6 py-4 rounded-2xl border-2 border-indigo-100 active:scale-95 transition-all shadow-sm flex items-center gap-2"
               >
-                Khata Dekhein <i className="fas fa-chevron-right ml-2"></i>
+                Khata Dekhein <ChevronRight size={14} />
               </button>
             </div>
           </div>

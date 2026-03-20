@@ -2,6 +2,7 @@
 import React, { useState, useRef, useEffect } from 'react';
 import { processChat, speakHindi } from '../services/gemini';
 import { CrmAction } from '../types';
+import { Volume2, Send, Bot, User } from 'lucide-react';
 
 const ChatAgent: React.FC = () => {
   const [messages, setMessages] = useState<{ text: string, sender: 'user' | 'bot' }[]>([
@@ -25,6 +26,16 @@ const ChatAgent: React.FC = () => {
     try {
       const response: CrmAction = await processChat(userMsg);
       setMessages(prev => [...prev, { text: response.reply, sender: 'bot' }]);
+      
+      // Show action feedback if any
+      if (response.action !== 'UNKNOWN' && response.action !== 'GET_BALANCE') {
+        const actionLabel = response.action.replace(/_/g, ' ');
+        setMessages(prev => [...prev, { 
+          text: `✅ Action Performed: ${actionLabel}. Business record updated.`, 
+          sender: 'bot' 
+        }]);
+      }
+
       speakHindi(response.reply);
     } catch (error) {
       setMessages(prev => [...prev, { text: "Network thoda dheela hai, kripya dobara try karein.", sender: 'bot' }]);
@@ -49,7 +60,7 @@ const ChatAgent: React.FC = () => {
                   onClick={() => speakHindi(m.text)}
                   className="absolute -right-12 bottom-2 w-9 h-9 rounded-full bg-white text-indigo-600 flex items-center justify-center active:scale-90 transition-all border border-slate-100 shadow-sm"
                 >
-                  <i className="fas fa-volume-up text-sm"></i>
+                  <Volume2 size={16} />
                 </button>
               )}
             </div>
@@ -81,7 +92,7 @@ const ChatAgent: React.FC = () => {
             disabled={!input.trim()}
             className="bg-indigo-600 text-white w-14 h-14 rounded-2xl flex items-center justify-center shadow-lg shadow-indigo-100 active:scale-90 transition-all disabled:opacity-30"
           >
-            <i className="fas fa-paper-plane"></i>
+            <Send size={24} />
           </button>
         </div>
       </div>

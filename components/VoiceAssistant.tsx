@@ -1,6 +1,7 @@
 
 import React, { useState, useRef } from 'react';
 import { GoogleGenAI, Modality, LiveServerMessage } from '@google/genai';
+import { Mic, Square, MessageCircle, Sparkles } from 'lucide-react';
 
 function decode(base64: string) {
   const binaryString = atob(base64);
@@ -118,7 +119,7 @@ const VoiceAssistant: React.FC = () => {
               onClick={isActive ? stopSession : startSession}
               className="text-white text-5xl active:scale-90 transition-transform flex items-center justify-center"
             >
-              <i className={`fas ${isActive ? 'fa-square-full text-2xl' : 'fa-microphone'}`}></i>
+              {isActive ? <Square size={32} fill="white" /> : <Mic size={48} />}
             </button>
           </div>
           {isActive && (
@@ -137,13 +138,13 @@ const VoiceAssistant: React.FC = () => {
       <div className="w-full max-w-sm space-y-4">
         <div className="bg-white p-5 rounded-[2rem] border border-slate-100 flex items-center gap-5 shadow-sm">
           <div className="w-12 h-12 rounded-2xl bg-emerald-50 flex items-center justify-center text-emerald-600">
-            <i className="fab fa-whatsapp text-2xl"></i>
+            <MessageCircle size={24} />
           </div>
           <div className="h-4 w-32 bg-slate-100 rounded-full animate-pulse"></div>
         </div>
         <div className="bg-white p-5 rounded-[2rem] border border-slate-100 flex items-center gap-5 shadow-sm">
           <div className="w-12 h-12 rounded-2xl bg-orange-50 flex items-center justify-center text-orange-500">
-            <i className="fas fa-sparkles text-2xl"></i>
+            <Sparkles size={24} />
           </div>
           <div className="h-4 w-44 bg-slate-100 rounded-full animate-pulse"></div>
         </div>

@@ -1,6 +1,7 @@
 
 import React, { useState } from 'react';
 import { Customer, Transaction, TransactionType } from '../types';
+import { ArrowLeft, Receipt, Zap, ShoppingCart, IndianRupee, Box, Tag, MessageSquare, Plus, Minus, Layers } from 'lucide-react';
 
 interface CustomerLedgerProps {
   customer: Customer;
@@ -23,7 +24,7 @@ const CustomerLedger: React.FC<CustomerLedgerProps> = ({ customer, onBack }) => 
       type: showAddTx.type as TransactionType,
       label: label || (showAddTx.type === 'SALE' ? 'General Sale' : 'Manual Entry'),
       amount: numAmount,
-      date: new Date().toLocaleDateString('en-IN', { day: 'numeric', month: 'short' })
+      date: new Date().toISOString().split('T')[0]
     };
 
     // Automated Ledger Calculation Logic
@@ -61,7 +62,7 @@ const CustomerLedger: React.FC<CustomerLedgerProps> = ({ customer, onBack }) => 
     <div className="p-6 pb-32 space-y-8 bg-white min-h-screen">
       <div className="flex items-center gap-5">
         <button onClick={onBack} className="w-14 h-14 rounded-full bg-slate-100 flex items-center justify-center text-slate-900 border-2 border-slate-200 active:scale-90 transition-transform shadow-sm">
-          <i className="fas fa-arrow-left text-xl"></i>
+          <ArrowLeft size={24} />
         </button>
         <div>
           <h1 className="text-3xl font-black text-slate-900 tracking-tighter leading-none">{localCustomer.business_name}</h1>
@@ -71,7 +72,7 @@ const CustomerLedger: React.FC<CustomerLedgerProps> = ({ customer, onBack }) => 
 
       <div className="bg-slate-900 p-8 rounded-[3rem] border border-slate-800 relative overflow-hidden shadow-2xl">
         <div className="absolute top-0 right-0 p-4 opacity-10 pointer-events-none">
-          <i className="fas fa-receipt text-[140px] text-white"></i>
+          <Receipt size={140} className="text-white" />
         </div>
         <div className="flex justify-between items-start relative z-10">
           <div className="space-y-2">
@@ -89,21 +90,21 @@ const CustomerLedger: React.FC<CustomerLedgerProps> = ({ customer, onBack }) => 
 
       <div className="space-y-6">
         <h3 className="text-xs font-black text-slate-500 uppercase tracking-[0.3em] px-2 flex items-center gap-2">
-           <i className="fas fa-bolt-lightning text-orange-500"></i> Quick Entry
+           <Zap size={14} className="text-orange-500" /> Quick Entry
         </h3>
         <div className="grid grid-cols-2 gap-5">
           <button 
             onClick={() => setShowAddTx({ open: true, type: 'SALE' })}
             className="flex flex-col items-center justify-center gap-4 p-8 rounded-[2.5rem] bg-rose-50 text-rose-800 border-2 border-rose-100 hover:bg-rose-100 active:scale-95 transition-all shadow-md group"
           >
-            <i className="fas fa-cart-arrow-down text-3xl group-hover:scale-110 transition-transform"></i>
+            <ShoppingCart size={32} className="group-hover:scale-110 transition-transform" />
             <span className="text-xs font-black uppercase tracking-widest">Bikri (Sale)</span>
           </button>
           <button 
             onClick={() => setShowAddTx({ open: true, type: 'PAYMENT_RECEIVED' })}
             className="flex flex-col items-center justify-center gap-4 p-8 rounded-[2.5rem] bg-emerald-50 text-emerald-800 border-2 border-emerald-100 hover:bg-emerald-100 active:scale-95 transition-all shadow-md group"
           >
-            <i className="fas fa-indian-rupee-sign text-3xl group-hover:scale-110 transition-transform"></i>
+            <IndianRupee size={32} className="group-hover:scale-110 transition-transform" />
             <span className="text-xs font-black uppercase tracking-widest">Jama (Recv)</span>
           </button>
         </div>
@@ -112,14 +113,14 @@ const CustomerLedger: React.FC<CustomerLedgerProps> = ({ customer, onBack }) => 
             onClick={() => setShowAddTx({ open: true, type: 'PURCHASE' })}
             className="flex flex-col items-center justify-center gap-4 p-8 rounded-[2.5rem] bg-blue-50 text-blue-800 border-2 border-blue-100 hover:bg-blue-100 active:scale-95 transition-all shadow-sm"
           >
-            <i className="fas fa-box text-2xl"></i>
+            <Box size={24} />
             <span className="text-[10px] font-black uppercase tracking-widest">Purchase</span>
           </button>
           <button 
             onClick={() => setShowAddTx({ open: true, type: 'EXPENSE' })}
             className="flex flex-col items-center justify-center gap-4 p-8 rounded-[2.5rem] bg-slate-50 text-slate-800 border-2 border-slate-200 hover:bg-slate-100 active:scale-95 transition-all shadow-sm"
           >
-            <i className="fas fa-tags text-2xl"></i>
+            <Tag size={24} />
             <span className="text-[10px] font-black uppercase tracking-widest">Expense</span>
           </button>
         </div>
@@ -129,7 +130,7 @@ const CustomerLedger: React.FC<CustomerLedgerProps> = ({ customer, onBack }) => 
         <div className="flex justify-between items-center px-2">
           <h3 className="text-2xl font-black text-slate-900 tracking-tight">Ledger History</h3>
           <button onClick={shareWhatsApp} className="text-emerald-700 font-black text-xs uppercase tracking-widest flex items-center gap-2 bg-emerald-50 px-5 py-3 rounded-2xl border-2 border-emerald-100 shadow-sm active:scale-95">
-             <i className="fab fa-whatsapp text-lg"></i> Send Reminder
+             <MessageSquare size={18} /> Send Reminder
           </button>
         </div>
         
@@ -141,7 +142,7 @@ const CustomerLedger: React.FC<CustomerLedgerProps> = ({ customer, onBack }) => 
                   <div className={`w-16 h-16 rounded-2xl flex items-center justify-center text-3xl ${
                     t.type === 'SALE' ? 'bg-rose-50 text-rose-600' : 'bg-emerald-50 text-emerald-600'
                   } border-2 border-white shadow-sm`}>
-                    <i className={`fas ${t.type === 'SALE' ? 'fa-plus' : 'fa-minus'}`}></i>
+                    {t.type === 'SALE' ? <Plus size={24} /> : <Minus size={24} />}
                   </div>
                   <div>
                     <p className="text-xl font-black text-slate-900 group-hover:text-indigo-600 transition-colors">{t.label}</p>
@@ -158,7 +159,7 @@ const CustomerLedger: React.FC<CustomerLedgerProps> = ({ customer, onBack }) => 
           </div>
         ) : (
           <div className="text-center py-32 bg-slate-50 rounded-[4rem] border-4 border-dashed border-slate-200">
-            <i className="fas fa-layer-group text-6xl mb-6 text-slate-200"></i>
+            <Layers size={64} className="mx-auto mb-6 text-slate-200" />
             <p className="text-lg font-black text-slate-400 uppercase tracking-[0.2em]">No transactions yet</p>
           </div>
         )}

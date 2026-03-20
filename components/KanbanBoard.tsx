@@ -1,6 +1,7 @@
 
 import React, { useState, useRef } from 'react';
 import { Lead, LeadStatus } from '../types';
+import { Plus, ChevronLeft, ChevronRight, Pencil, UserCircle, ArrowRight, FileText } from 'lucide-react';
 
 interface KanbanBoardProps {
   language: 'en' | 'hi';
@@ -49,19 +50,19 @@ const KanbanBoard: React.FC<KanbanBoardProps> = ({ language }) => {
           </p>
         </div>
         <button className="w-14 h-14 rounded-2xl bg-indigo-600 text-white flex items-center justify-center shadow-xl shadow-indigo-100 active:scale-95 transition-transform">
-          <i className="fas fa-plus text-xl"></i>
+          <Plus size={24} />
         </button>
       </header>
 
       {/* Navigation Arrows for Sliding */}
       <div className="absolute top-[200px] left-2 z-10 opacity-60 pointer-events-none">
         <button onClick={scrollLeft} className="w-10 h-10 bg-white shadow-md rounded-full flex items-center justify-center border border-slate-200 pointer-events-auto">
-          <i className="fas fa-chevron-left text-slate-400"></i>
+          <ChevronLeft size={20} className="text-slate-400" />
         </button>
       </div>
       <div className="absolute top-[200px] right-2 z-10 opacity-60 pointer-events-none">
         <button onClick={scrollRight} className="w-10 h-10 bg-white shadow-md rounded-full flex items-center justify-center border border-slate-200 pointer-events-auto">
-          <i className="fas fa-chevron-right text-slate-400"></i>
+          <ChevronRight size={20} className="text-slate-400" />
         </button>
       </div>
 
@@ -90,7 +91,7 @@ const KanbanBoard: React.FC<KanbanBoardProps> = ({ language }) => {
                     <div className="flex justify-between items-start">
                       <h4 className="font-black text-slate-900 text-xl tracking-tight leading-tight">{lead.name}</h4>
                       <button className="w-9 h-9 rounded-full bg-slate-50 text-slate-400 flex items-center justify-center border border-slate-100">
-                        <i className="fas fa-pencil text-sm"></i>
+                        <Pencil size={14} />
                       </button>
                     </div>
 
@@ -99,7 +100,7 @@ const KanbanBoard: React.FC<KanbanBoardProps> = ({ language }) => {
                          {lead.amount}
                        </span>
                        <span className="text-[10px] font-black text-indigo-700 bg-indigo-50 px-3 py-1.5 rounded-lg flex items-center gap-2 uppercase tracking-widest border border-indigo-100">
-                         <i className="fas fa-user-circle text-xs"></i> {lead.assignedTo || 'SELF'}
+                         <UserCircle size={12} /> {lead.assignedTo || 'SELF'}
                        </span>
                     </div>
 
@@ -119,7 +120,7 @@ const KanbanBoard: React.FC<KanbanBoardProps> = ({ language }) => {
                     >
                       <div className="absolute inset-0 bg-white/10 w-3/4"></div> {/* Progress fill effect */}
                       <span className="relative z-10">{language === 'hi' ? 'अपडेट' : 'Update'}</span>
-                      <i className="fas fa-arrow-right-long relative z-10 scale-110"></i>
+                      <ArrowRight size={16} className="relative z-10" />
                     </button>
                   </div>
                 </div>
@@ -141,7 +142,7 @@ const KanbanBoard: React.FC<KanbanBoardProps> = ({ language }) => {
           <div className="relative z-10 space-y-4">
             <div className="flex items-center gap-3">
               <div className="w-10 h-10 bg-indigo-500 rounded-xl flex items-center justify-center text-white">
-                <i className="fas fa-file-invoice text-xl"></i>
+                <FileText size={20} />
               </div>
               <h3 className="text-white font-black text-lg">Vyapar Accounting</h3>
             </div>

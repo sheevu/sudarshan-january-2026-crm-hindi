@@ -8,7 +8,9 @@ import CustomerManager from './components/CustomerManager';
 import CustomerLedger from './components/CustomerLedger';
 import KanbanBoard from './components/KanbanBoard';
 import VoiceAssistant from './components/VoiceAssistant';
+import InventoryManager from './components/InventoryManager';
 import { Customer } from './types';
+import { Bell, Globe } from 'lucide-react';
 
 const App: React.FC = () => {
   const [activeTab, setActiveTab] = useState('dashboard');
@@ -31,6 +33,8 @@ const App: React.FC = () => {
         return <CustomerManager onSelectCustomer={handleCustomerSelect} />;
       case 'leads':
         return <KanbanBoard language={language} />;
+      case 'inventory':
+        return <InventoryManager />;
       case 'diary':
         return <DiaryAnalyzer />;
       case 'chat':
@@ -69,12 +73,13 @@ const App: React.FC = () => {
           <div className="flex gap-2">
             <button 
               onClick={toggleLanguage}
-              className="px-4 h-11 rounded-xl bg-slate-100 flex items-center justify-center text-xs font-black text-slate-700 hover:text-slate-900 transition-all border border-slate-300 uppercase tracking-widest"
+              className="px-4 h-11 rounded-xl bg-slate-100 flex items-center justify-center text-xs font-black text-slate-700 hover:text-slate-900 transition-all border border-slate-300 uppercase tracking-widest gap-2"
             >
+              <Globe size={14} />
               {language === 'hi' ? 'ENG' : 'हिंदी'}
             </button>
             <button className="w-11 h-11 rounded-xl bg-slate-100 flex items-center justify-center text-slate-700 border border-slate-300">
-              <i className="fas fa-bell text-lg"></i>
+              <Bell size={20} />
             </button>
           </div>
         </header>
